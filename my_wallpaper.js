@@ -1,11 +1,9 @@
-/*
-NOTE:
-The wallpaper may take a few seconds to load due to the time it requires
-to render the water pattern in the background.
-*/
+/* NOTE:
+The wallpaper may take a few seconds to load due to the time
+it requires to render the water pattern in the background. */
 
 // PARAMETRIC VARIABLES
-let time = 'day';
+let time = 'night';
 let numRipples = 75;
 
 // Refer to this image for rose patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg
@@ -15,7 +13,7 @@ let roseD = 4;
 let roseX = 100; // Takes 0 to 200
 let roseY = 100; // Takes 0 to 200
 let roseRotate = 0; // Takes 0 to 360
-let roseRadius = 30;
+let roseRadius = 25;
 let roseColorOne = [170, 0, 255]; // R, G, B
 let roseColorTwo = [43, 0, 255]; // R, G, B
 
@@ -24,8 +22,8 @@ let pistilColor = [255, 255, 0]; // R, G, B
 
 // SET UP WALLPAPER FUNCTION
 function setup_wallpaper(pWallpaper) {
-  //pWallpaper.output_mode(DEVELOP_GLYPH);
-  pWallpaper.output_mode(GRID_WALLPAPER);
+  pWallpaper.output_mode(DEVELOP_GLYPH);
+  //pWallpaper.output_mode(GRID_WALLPAPER);
   pWallpaper.resolution(FIT_TO_SCREEN);
   pWallpaper.show_guide(true); // Set to false when ready to print
 
@@ -33,21 +31,33 @@ function setup_wallpaper(pWallpaper) {
   pWallpaper.grid_settings.cell_width  = 200;
   pWallpaper.grid_settings.cell_height = 200;
   pWallpaper.grid_settings.row_offset  = 0;
-
-  angleMode(DEGREES); // Set angle mode to degrees
-  pixelDensity(1); // Set pixel density to 1
-  noLoop(); // Turn off loop
 }
 
 // WALLPAPER BACKGROUND FUNCTION
 function wallpaper_background() {
+  angleMode(DEGREES); // Set angle mode to degrees
+  pixelDensity(1); // Set pixel density to 1
+  noLoop(); // Turn off loop
+  background(255/2);
   // Run water function
-  water();
+  //water();
 }
 
 // DRAW SYMBOL FUNCTION
 function my_symbol() {
+  // Run lily pad function
+  lilyPad(100, 100, 100);
+
+  // Run glow effect if time is night
+  if(time == 'night') {
+    glow(150, [255, 255, 255]);
+  }
+
+  // Run polar rose function
   polarRose(roseX, roseY, roseRotate);
+
+  // Run granulate function
+  //granulate(15);
 }
 
 // WATER FUNCTION
@@ -144,6 +154,24 @@ function waterColor(x, division, addition, exponent) {
   }
 }
 
+// LILY PAD FUNCTION
+function lilyPad(x, y, radius) {
+  // Declare variables
+  lilyPadLayer = createGraphics(radius * 2, radius * 2); // Create a graphic layer
+  lilyPadLayer.noStroke(); // Set no stroke
+  lilyPadLayer.fill(0, 140, 20); // Set fill color
+
+  // Draw lily pad
+  lilyPadLayer.ellipse(x, y, radius); // Draw ellipse
+  //lilyPadLayer.erase(); // Turn on erase mode
+  lilyPadLayer.fill(0, 0, 0);
+  beginShape();
+  vertex();
+  endShape();
+  //lilyPadLayer.noErase(); // Turn off erase mode
+  image(lilyPadLayer, x, y);
+}
+
 // POLAR ROSE FUNCTION
 function polarRose(x, y, rotation) {
   // PETALS
@@ -158,10 +186,10 @@ function polarRose(x, y, rotation) {
   // Draw rose
   beginShape();
   // Repeat for every angle
-  for(let angle = 0; angle < 360; angle += 0.1) {
+  for(let theta = 0; theta < 360; theta += 0.1) {
     // Declare variables
     // Equations from: https://en.wikipedia.org/wiki/Rose_(mathematics)
-    let dAngle = angle * Math.max(roseN, roseD);
+    let dAngle = theta * Math.max(roseN, roseD);
     let r = cos((roseN / roseD) * dAngle);
     let dx = (roseRadius * r) * cos(dAngle) + x;
     let dy = (roseRadius * r) * sin(dAngle) + y;
@@ -219,4 +247,38 @@ function radialGradient(
   // Add gradients
   drawingContext.fillStyle = gradientFill;
   drawingContext.strokeStyle = gradientStroke;
+}
+
+// GLOW FUNCTION
+function glow(amount, colorArray) {
+  // Set shadow blur amount
+  drawingContext.shadowBlur = amount;
+
+  // Set shadow color
+  drawingContext.shadowColor = color(colorArray);
+}
+
+// GRANULATE FUNCTION
+function granulate(amount) {
+  // Load pixels
+  loadPixels();
+
+  // Declare variables
+  const density = pixelDensity();
+  const pixelsCount = 4 * (width * density) * (height * density);
+
+  // Repeat for all RGBA pixels
+  for(let currentPixel = 0; currentPixel < pixelsCount; currentPixel += 4) {
+    // Randomise grain amount
+    const grainAmount = random(-amount, amount);
+
+    // Add grain to all RGBA pixels
+    pixels[currentPixel] = pixels[currentPixel] + grainAmount; // Red
+    pixels[currentPixel + 1] = pixels[currentPixel + 1] + grainAmount; // Green
+    pixels[currentPixel + 2] = pixels[currentPixel + 2] + grainAmount; // Blue
+    pixels[currentPixel + 3] = pixels[currentPixel + 3] + grainAmount; // Alpha
+  }
+
+  // Update pixels
+  updatePixels();
 }
