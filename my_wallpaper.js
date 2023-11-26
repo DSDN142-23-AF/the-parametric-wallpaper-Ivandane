@@ -3,22 +3,24 @@ The wallpaper may take a few seconds to load due to the time
 it requires to render the water pattern in the background. */
 
 // PARAMETRIC VARIABLES
-let time = 'night';
+let time = 'day';
 let numRipples = 75;
 
-// Refer to this image for rose patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg
-// For best results, do not set the same value for 'roseN' and 'roseD'
-let roseN = 7;
-let roseD = 4;
-let roseX = 100; // Takes 0 to 200
-let roseY = 100; // Takes 0 to 200
-let roseRotate = 0; // Takes 0 to 360
-let roseRadius = 25;
-let roseColorOne = [170, 0, 255]; // R, G, B
-let roseColorTwo = [43, 0, 255]; // R, G, B
+// Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg
+// For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'
+let waterLilyN = 7;
+let waterLilyD = 4;
+let waterLilyX = 100; // Takes 0 to 200
+let waterLilyY = 100; // Takes 0 to 200
+let waterLilyRotate = 0; // Takes 0 to 360
+let waterLilyRadius = 22.5;
+let waterLilyColorOne = [170, 0, 255]; // R, G, B
+let waterLilyColorTwo = [43, 0, 255]; // R, G, B
 
-let pistilRadius = 10;
+let pistilRadius = 7.5;
 let pistilColor = [255, 255, 0]; // R, G, B
+
+let glowAmount = 50;
 
 // SET UP WALLPAPER FUNCTION
 function setup_wallpaper(pWallpaper) {
@@ -38,23 +40,23 @@ function wallpaper_background() {
   angleMode(DEGREES); // Set angle mode to degrees
   pixelDensity(1); // Set pixel density to 1
   noLoop(); // Turn off loop
-  background(255/2);
   // Run water function
-  //water();
+  water();
+  //background(255/2);
 }
 
 // DRAW SYMBOL FUNCTION
 function my_symbol() {
   // Run lily pad function
-  lilyPad(100, 100, 100);
+  lilyPad(100, 100, 75, 45); // x, y, radius, rotation
 
   // Run glow effect if time is night
-  if(time == 'night') {
-    glow(150, [255, 255, 255]);
+  if(time.toLowerCase() == 'night') {
+    glow(glowAmount, [200, 200, 200]);
   }
 
-  // Run polar rose function
-  polarRose(roseX, roseY, roseRotate);
+  // Run water lily function
+  waterLily(waterLilyX, waterLilyY, waterLilyRadius, waterLilyRotate);
 
   // Run granulate function
   //granulate(15);
@@ -101,16 +103,14 @@ function water() {
         pixels[currentPixel + 2] = waterColor(noise, 40, 225, 3); // Blue
         pixels[currentPixel + 3] = 255; // Alpha
       }
-
       // Set time to night
-      if(time.toLowerCase() == 'night') {
+      else if(time.toLowerCase() == 'night') {
         // Set color to all RGBA pixels
         pixels[currentPixel] = waterColor(noise, 40, 32, 2.2); // Red
         pixels[currentPixel + 1] = waterColor(noise, 30, 55, 3.34); // Green
         pixels[currentPixel + 2] = waterColor(noise, 30, 68, 3.55); // Blue
         pixels[currentPixel + 3] = 255; // Alpha
       }
-
       // Set time to day by default if given an incorrect variable
       else {
         // Set color to all RGBA pixels
@@ -154,26 +154,110 @@ function waterColor(x, division, addition, exponent) {
   }
 }
 
-// LILY PAD FUNCTION
-function lilyPad(x, y, radius) {
-  // Declare variables
-  lilyPadLayer = createGraphics(radius * 2, radius * 2); // Create a graphic layer
-  lilyPadLayer.noStroke(); // Set no stroke
-  lilyPadLayer.fill(0, 140, 20); // Set fill color
+// RADIAL GRADIENT FUNCTION
+function radialGradient(
+  xStart, yStart, radiusStart,
+  xEnd, yEnd, radiusEnd,
+  colorStart, colorEnd,
+  type) {
+  // Declare variable
+  let gradient = drawingContext.createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd);
 
-  // Draw lily pad
-  lilyPadLayer.ellipse(x, y, radius); // Draw ellipse
-  //lilyPadLayer.erase(); // Turn on erase mode
-  lilyPadLayer.fill(0, 0, 0);
-  beginShape();
-  vertex();
-  endShape();
-  //lilyPadLayer.noErase(); // Turn off erase mode
+  // Set color gradients
+  gradient.addColorStop(0, color(colorStart));
+  gradient.addColorStop(1, color(colorEnd));
+
+  // Add gradient
+  if(type == 'stroke') {
+    drawingContext.strokeStyle = gradient;
+  }
+  else if(type == 'fill') {
+    drawingContext.fillStyle = gradient;
+  }
+}
+
+// GLOW FUNCTION
+function glow(amount, colorArray) {
+  // Set shadow blur amount
+  drawingContext.shadowBlur = amount;
+
+  // Set shadow color
+  drawingContext.shadowColor = color(colorArray);
+}
+
+// LILY PAD FUNCTION
+function lilyPad(x, y, radius, rotation) {
+  // Declare variables
+  lilyPadLayer = createGraphics(radius, radius); // Create a graphic layer
+  lilyPadLayer.pixelDensity(5); // Set pixel density for sharper image
+  lilyPadLayer.translate(radius / 2, radius / 2); // Set new (0, 0) co-ordinate
+  lilyPadLayer.angleMode(DEGREES); // Set layer's angle mode to degrees
+  lilyPadLayer.rotate(rotation); // Set rotation
+  lilyPadLayer.noStroke(); // Set no stroke
+
+  // Create radial gradient (radialGradient() function does not work here because of the graphic layer)
+  let gradient = drawingContext.createRadialGradient(0, 0, 0, 0, 0, radius / 2); // Declare variable
+  // Set radial gradient for day
+  if(time.toLowerCase() == 'day') {
+    gradient.addColorStop(0, color(0, 140, 40));
+    gradient.addColorStop(1, color(0, 190, 30));
+    lilyPadLayer.drawingContext.fillStyle = gradient;
+  }
+  // Set radial gradient for night
+  else if(time.toLowerCase() == 'night') {
+    gradient.addColorStop(0, color(0, 190, 30));
+    gradient.addColorStop(1, color(0, 140, 40));
+    lilyPadLayer.drawingContext.fillStyle = gradient;
+  }
+  // Set radial gradient for day by default if given an incorrect variable
+  else {
+    gradient.addColorStop(0, color(0, 140, 40));
+    gradient.addColorStop(1, color(0, 190, 30));
+    lilyPadLayer.drawingContext.fillStyle = gradient;
+  }
+
+  // Lily pad
+  lilyPadLayer.ellipse(0, 0, radius); // Draw ellipse
+
+  // Lines
+  // Set stroke color for day
+  if(time.toLowerCase() == 'day') {
+    lilyPadLayer.stroke(20, 120, 20);
+  }
+  // Set stroke color for night
+  else if(time.toLowerCase() == 'night') {
+    lilyPadLayer.stroke(40, 180, 60);
+  }
+  // Set stroke color for day by default if given an incorrect variable
+  else {
+    lilyPadLayer.stroke(20, 120, 20);
+  }
+  lilyPadLayer.strokeWeight(0.75); // Set stroke weight
+  // Repeat for every angle
+  for(let theta = 0; theta < 360; theta += 30) {
+    // Declare variables
+    let lineEndX = cos(theta) * (radius / 3);
+    let lineEndY = sin(theta) * (radius / 3);
+
+    // Draw lines
+    lilyPadLayer.line(0, 0, lineEndX, lineEndY);
+  }
+
+  // Cut-out
+  lilyPadLayer.erase(); // Turn on erase mode
+  lilyPadLayer.beginShape();
+  lilyPadLayer.vertex(0 - (radius / 8), 0 - (radius / 2));
+  lilyPadLayer.vertex(radius / 8, 0 - (radius / 2));
+  lilyPadLayer.vertex(0, 0);
+  lilyPadLayer.endShape();
+  lilyPadLayer.noErase(); // Turn off erase mode
+  
+  // Print image
   image(lilyPadLayer, x, y);
 }
 
-// POLAR ROSE FUNCTION
-function polarRose(x, y, rotation) {
+// WATER LILY FUNCTION
+function waterLily(x, y, radius, rotation) {
   // PETALS
   // Start new state
   push();
@@ -181,18 +265,19 @@ function polarRose(x, y, rotation) {
   // Set parameters
   rotate(rotation); // Set rotation
   strokeWeight(0.5); // Set stroke thickness
-  radialGradient(0, 0, 0, 0, 0, 45, roseColorOne, roseColorTwo, 25); // Set fill and stroke color
+  radialGradient(x, y, 0, x, y, radius, waterLilyColorTwo, waterLilyColorOne, 'stroke'); // Set stroke color
+  radialGradient(x, y, 0, x, y, radius, waterLilyColorOne, waterLilyColorTwo, 'fill'); // Set fill color
 
-  // Draw rose
+  // Draw water lily
   beginShape();
   // Repeat for every angle
   for(let theta = 0; theta < 360; theta += 0.1) {
     // Declare variables
     // Equations from: https://en.wikipedia.org/wiki/Rose_(mathematics)
-    let dAngle = theta * Math.max(roseN, roseD);
-    let r = cos((roseN / roseD) * dAngle);
-    let dx = (roseRadius * r) * cos(dAngle) + x;
-    let dy = (roseRadius * r) * sin(dAngle) + y;
+    let dAngle = theta * Math.max(waterLilyN, waterLilyD);
+    let r = cos((waterLilyN / waterLilyD) * dAngle);
+    let dx = (radius * r) * cos(dAngle) + x;
+    let dy = (radius * r) * sin(dAngle) + y;
 
     // Draw vertex points
     vertex(dx, dy);
@@ -218,44 +303,6 @@ function strokeColor(array, percent) {
 
   // Return new array
   return array;
-}
-
-// RADIAL GRADIENT FUNCTION
-function radialGradient(
-  xStart, yStart, radiusStart,
-  xEnd, yEnd, radiusEnd,
-  colorStart, colorEnd,
-  percent) {
-  // Declare variables
-  let gradientFill = drawingContext.createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd);
-  let gradientStroke = drawingContext.createRadialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd);
-  
-  // Declare arrays
-  let strokeColorStart = [colorStart[0], 100, 100];
-  let strokeColorEnd = [colorEnd[0], 100, 100];
-
-  // Decrease brightness by percentage
-  strokeColorStart[2] = strokeColorStart[2] - percent;
-  strokeColorEnd[2] = strokeColorEnd[2] - percent;
-
-  // Set color gradients
-  gradientFill.addColorStop(0, color(colorStart));
-  gradientFill.addColorStop(1, color(colorEnd));
-  gradientStroke.addColorStop(0, color(strokeColorEnd));
-  gradientStroke.addColorStop(1, color(strokeColorStart));
-
-  // Add gradients
-  drawingContext.fillStyle = gradientFill;
-  drawingContext.strokeStyle = gradientStroke;
-}
-
-// GLOW FUNCTION
-function glow(amount, colorArray) {
-  // Set shadow blur amount
-  drawingContext.shadowBlur = amount;
-
-  // Set shadow color
-  drawingContext.shadowColor = color(colorArray);
 }
 
 // GRANULATE FUNCTION
