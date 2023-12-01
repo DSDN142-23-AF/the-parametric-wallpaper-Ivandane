@@ -1,164 +1,147 @@
-/* NOTE:
-The wallpaper may take a few seconds to load due to the time
-it requires to render the water pattern in the background. */
-
 // PARAMETRIC VARIABLES
-let time = 'night';
-let numWaves = 50;
+// TIME
+let time = 'night'; // Accepts either 'day' or 'night'
 
-// Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg
-// For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'
-let waterLilyN = 7;
-let waterLilyD = 3;
-let waterLilyX = 100; // Takes 0 to 200
-let waterLilyY = 100; // Takes 0 to 200
-let waterLilyRotate = 0; // Takes 0 to 360
-let waterLilyRadius = 22.5;
-let waterLilyColorOne = [255, 0, 120]; // R, G, B
-let waterLilyColorTwo = [255, 175, 210]; // R, G, B
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 50;
+let lilyPadOneY = 170;
+let lilyPadOneRadius = 30;
+let lilyPadOneRotation = 80; // Accepts range from 0 to 359
 
-let pistilRadius = 7.5;
-let pistilColor = [255, 255, 0]; // R, G, B
+// Lily Pad Two
+let lilyPadTwoX = 35;
+let lilyPadTwoY = 35;
+let lilyPadTwoRadius = 35;
+let lilyPadTwoRotation = 165; // Accepts range from 0 to 359
 
-let glowAmount = 50;
+// Lily Pad Three
+let lilyPadThreeX = 155;
+let lilyPadThreeY = 35;
+let lilyPadThreeRadius = 40;
+let lilyPadThreeRotation = 210; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 4;
+let waterLilyOneD = 3;
+let waterLilyOneX = 70;
+let waterLilyOneY = 165;
+let waterLilyOneRadius = 15;
+let waterLilyOneColorOne = [45, 0, 255];
+let waterLilyOneColorTwo = [125, 120, 255];
+
+// Water Lily Two
+let waterLilyTwoN = 5;
+let waterLilyTwoD = 3;
+let waterLilyTwoX = 37;
+let waterLilyTwoY = 40;
+let waterLilyTwoRadius = 10;
+let waterLilyTwoColorOne = [255, 255, 255];
+let waterLilyTwoColorTwo = [245, 255, 130];
+
+// Water Lily Three
+let waterLilyThreeN = 4;
+let waterLilyThreeD = 1;
+let waterLilyThreeX = 150;
+let waterLilyThreeY = 40;
+let waterLilyThreeRadius = 12.5;
+let waterLilyThreeColorOne = [255, 0, 120];
+let waterLilyThreeColorTwo = [255, 125, 185];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 32.5;
+let cattailOneY = 90;
+let cattailOneScale = 1.25;
+
+// Cattail Two
+let cattailTwoX = 165;
+let cattailTwoY = 140;
+let cattailTwoScale = 1.4;
+
+// ROCK
+let rockX = 100;
+let rockY = 105;
+let rockScale = 2;
+
+// FROG
+let frogX = 100;
+let frogY = 100;
+let frogScale = 1.6;
 
 // SET UP WALLPAPER FUNCTION
 function setup_wallpaper(pWallpaper) {
-  pWallpaper.output_mode(DEVELOP_GLYPH);
-  //pWallpaper.output_mode(GRID_WALLPAPER);
+  // Output settings
+  pWallpaper.output_mode(GLIDE_WALLPAPER);
   pWallpaper.resolution(FIT_TO_SCREEN);
-  pWallpaper.show_guide(true); // Set to false when ready to print
+  pWallpaper.show_guide(false); // Set to false when ready to print
 
   // Grid settings
   pWallpaper.grid_settings.cell_width  = 200;
   pWallpaper.grid_settings.cell_height = 200;
-  pWallpaper.grid_settings.row_offset  = 50;
+  pWallpaper.grid_settings.row_offset  = 100;
 }
 
 // WALLPAPER BACKGROUND FUNCTION
 function wallpaper_background() {
-  angleMode(DEGREES); // Set angle mode to degrees
-  pixelDensity(1); // Set pixel density to 1
-  noLoop(); // Turn off loop
+  // Set mode settings
+  angleMode(DEGREES);
+  colorMode(RGB);
+
+  // Set background color depending on the time of day
+  // If time is day
+  if(time.toLowerCase() == 'day') {
+    background(0, 150, 210); // Light blue
+  }
+  // If time is night
+  else if(time.toLowerCase() == 'night') {
+    background(30, 70, 90); // Blueish green
+  }
+  // Default if given an incorrect variable
+  else {
+    background(0, 150, 210);
+  }
 
   // Run water function
   water();
-  //background(0, 150, 210);
-  //background(32, 55, 68);
+
+  // Turn off loop
+  noLoop();
 }
 
 // DRAW SYMBOL FUNCTION
 function my_symbol() {
+  // Run rock function
+  // X, Y, scale
+  rock(rockX, rockY, rockScale);
+
   // Run lily pad function
-  lilyPad(100, 100, 75, 45); // x, y, radius, rotation
-  lilyPad(30, 30, 30, 280); // x, y, radius, rotation
-  lilyPad(25, 130, 20, 45); // x, y, radius, rotation
-  lilyPad(168, 168, 38, 180); // x, y, radius, rotation
+  // X, Y, radius, rotation
+  lilyPad(lilyPadOneX, lilyPadOneY, lilyPadOneRadius, lilyPadOneRotation);
+  lilyPad(lilyPadTwoX, lilyPadTwoY, lilyPadTwoRadius, lilyPadTwoRotation);
+  lilyPad(lilyPadThreeX, lilyPadThreeY, lilyPadThreeRadius, lilyPadThreeRotation);
 
   // Run water lily function
-  waterLily(waterLilyX, waterLilyY, waterLilyRadius, waterLilyRotate);
-  waterLily(40, 35, 10, 0);
-  waterLily(165, 160, 8, 0);
-
-  // Run cattails function
-  cattailGroup(165, 30);
-
-  // Run rock function
-  rock(60, 175);
+  // N, D, X, Y, radius, colorOne, colorTwo, pistilColor
+  waterLily(waterLilyOneN, waterLilyOneD, waterLilyOneX, waterLilyOneY, waterLilyOneRadius, waterLilyOneColorOne, waterLilyOneColorTwo);
+  waterLily(waterLilyTwoN, waterLilyTwoD, waterLilyTwoX, waterLilyTwoY, waterLilyTwoRadius, waterLilyTwoColorOne, waterLilyTwoColorTwo);
+  waterLily(waterLilyThreeN, waterLilyThreeD, waterLilyThreeX, waterLilyThreeY, waterLilyThreeRadius, waterLilyThreeColorOne, waterLilyThreeColorTwo);
+    // Run cattails group function
+  // X, Y
+  cattailGroup(cattailOneX, cattailOneY, cattailOneScale);
+  cattailGroup(cattailTwoX, cattailTwoY, cattailTwoScale);
 
   // Run frog function
-  frog(60, 172, 0.9);
-}
+  // X, Y, scale
+  frog(frogX, frogY, frogScale);
 
-// WATER FUNCTION
-function water() {
-  // Declare arrays
-  let vectors = [];
-  let distances = [];
-
-  // Repeat for the number of ripples
-  for(let currentVector = 0; currentVector <= numWaves; currentVector ++) {
-    // Create random vectors in the vectors array
-    vectors[currentVector] = createVector(random(width), random(height));
-  }
-
-  // Load pixels
-  loadPixels();
-
-  // Repeat for all pixels
-  for(let x = 0; x < width; x ++) {
-    for(let y = 0; y < height; y ++) {
-      // Repeat for all values in the vectors array
-      for(let currentDistance = 0; currentDistance < vectors.length; currentDistance ++) {
-        // Calculate the distance between the vectors and add them to the distances array
-        distances[currentDistance] = dist(x, y, vectors[currentDistance].x, vectors[currentDistance].y);
-      }
-
-      // Declare distances sorted array
-      let sorted = sort(distances);
-
-      // Declare noise by the first value in the sorted array
-      let noise = sorted[0];
-
-      // Declare current pixel
-      let currentPixel = (x + y * width) * 4;
-
-      // Set time to day
-      if(time.toLowerCase() == 'day') {
-        // Set color to all RGBA pixels
-        pixels[currentPixel] = waterColor(noise, 9.4, 0, 2); // Red
-        pixels[currentPixel + 1] = waterColor(noise, 14.65, 150, 2); // Green
-        pixels[currentPixel + 2] = waterColor(noise, 22.4, 210, 2); // Blue
-        pixels[currentPixel + 3] = 255; // Alpha
-      }
-      // Set time to night
-      else if(time.toLowerCase() == 'night') {
-        // Set color to all RGBA pixels
-        pixels[currentPixel] = waterColor(-(noise, 44, 32, 2)); // Red
-        pixels[currentPixel + 1] = waterColor(noise, 20.2, 55, 2); // Green
-        pixels[currentPixel + 2] = waterColor(noise, 16.5, 68, 2); // Blue
-        pixels[currentPixel + 3] = 255; // Alpha
-      }
-      // Set time to day by default if given an incorrect variable
-      else {
-        // Set color to all RGBA pixels
-        pixels[currentPixel] = waterColor(noise, 8, 0, 2); // Red
-        pixels[currentPixel + 1] = waterColor(noise, 12.4, 150, 2); // Green
-        pixels[currentPixel + 2] = waterColor(noise, 19, 210, 2); // Blue
-        pixels[currentPixel + 3] = 255; // Alpha
-      }
-    }
-  }
-
-  // Update Pixels
-  updatePixels();
-
-  // Start new state
-  push();
-
-  // Set no stroke
-  noStroke();
-
-  // Draw vertex points
-  beginShape(POINTS);
-  // Repeat for all values in the vectors array
-  for(let currentVertex = 0; currentVertex < vectors.length; currentVertex ++) {
-    // Create a vertex point from the co-ordinates in the vectors array
-    vertex(vectors[currentVertex].x, vectors[currentVertex].y);
-  }
-  endShape();
-
-  // Restore previous state
-  pop();
-}
-
-// WATER COLOR FUNCTION
-function waterColor(x, division, addition, exponent) {
-  if(x < 0) {
-    return addition;
-  }
-  else {
-    return pow(x / division, exponent) + addition;
+  // If time is night
+  if(time.toLowerCase() == 'night') {
+    // Run fireflies function
+    fireflies();
   }
 }
 
@@ -183,24 +166,24 @@ function radialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd, colo
     let strokeColorEnd = [];
 
     // Repeat for every value in the colorStart array
-    for(let currentColor = 0; currentColor < colorStart.length; currentColor ++) {
+    for(let i = 0; i < colorStart.length; i ++) {
       // Decrease the colorStart value by 40 and add to the strokeColorStart array
-      strokeColorStart[currentColor] = colorStart[currentColor] - 40;
+      strokeColorStart[i] = colorStart[i] - 40;
 
       // If the value is less than 0, set to 0
-      if(strokeColorStart[currentColor] < 0) {
-        strokeColorStart[currentColor] = 0;
+      if(strokeColorStart[i] < 0) {
+        strokeColorStart[i] = 0;
       }
     }
 
     // Repeat for every value in the colorEnd array
-    for(let currentColor = 0; currentColor < colorEnd.length; currentColor ++) {
+    for(let i = 0; i < colorEnd.length; i ++) {
       // Decrease the colorEnd value by 40 and add to the strokeColorEnd array
-      strokeColorEnd[currentColor] = colorEnd[currentColor] - 40;
+      strokeColorEnd[i] = colorEnd[i] - 40;
       
       // If the value is less than 0, set to 0
-      if(strokeColorEnd[currentColor] < 0) {
-        strokeColorEnd[currentColor] = 0;
+      if(strokeColorEnd[i] < 0) {
+        strokeColorEnd[i] = 0;
       }
     }
 
@@ -223,6 +206,31 @@ function radialGradient(xStart, yStart, radiusStart, xEnd, yEnd, radiusEnd, colo
   }
 }
 
+// WATER FUNCTION
+function water() {
+  // Start new state
+  push();
+
+  // Repeat for width and height
+  for(let x = 0; x < width; x ++) {
+    for(let y = 0; y < height; y ++) {
+      // Declare variables
+      let nx = x * 0.01;
+      let ny = y * 0.01;
+      let c = noise(nx, ny) * 150;
+
+      // Set stroke color and transparency
+      stroke(c, c, c, 50);
+
+      // Draw points
+      point(x, y);
+    }
+  }
+
+  // Restore previous state
+  pop();
+}
+
 // LILY PAD FUNCTION
 function lilyPad(x, y, radius, rotation) {
   // LILY PAD
@@ -231,50 +239,54 @@ function lilyPad(x, y, radius, rotation) {
   lilyPadLayer.pixelDensity(5); // Set pixel density for sharper image
   lilyPadLayer.translate(radius / 2, radius / 2); // Set new (0, 0) co-ordinate
   lilyPadLayer.angleMode(DEGREES); // Set layer's angle mode to degrees
-  lilyPadLayer.rotate(rotation); // Set rotation
-  lilyPadLayer.noStroke(); // Set no stroke
+  lilyPadLayer.rotate(rotation);
+  lilyPadLayer.noStroke();
 
   // Create radial gradient (radialGradient() function does not work here because of the graphic layer)
-  let gradient = drawingContext.createRadialGradient(0, 0, 0, 0, 0, radius / 2); // Declare variable
+  let gradient = drawingContext.createRadialGradient(0, 0, 0, 0, 0, radius / 2);
 
-  // Set radial gradient for day
+  // If time is day
   if(time.toLowerCase() == 'day') {
-    gradient.addColorStop(0, color(0, 140, 40));
-    gradient.addColorStop(1, color(0, 190, 30));
+    // Set radial gradient
+    gradient.addColorStop(0, color(40, 180, 80));
+    gradient.addColorStop(1, color(40, 230, 70));
     lilyPadLayer.drawingContext.fillStyle = gradient;
   }
-
-  // Set radial gradient for night
+  // If time is night
   else if(time.toLowerCase() == 'night') {
+    // Set radial gradient
     gradient.addColorStop(0, color(0, 190, 30));
     gradient.addColorStop(1, color(0, 140, 40));
     lilyPadLayer.drawingContext.fillStyle = gradient;
   }
-
-  // Set radial gradient for day by default if given an incorrect variable
+  // Default if given an incorrect variable
   else {
-    gradient.addColorStop(0, color(0, 140, 40));
-    gradient.addColorStop(1, color(0, 190, 30));
+    gradient.addColorStop(0, color(40, 180, 80));
+    gradient.addColorStop(1, color(40, 230, 70));
     lilyPadLayer.drawingContext.fillStyle = gradient;
   }
 
   // Draw ellipse
   lilyPadLayer.ellipse(0, 0, radius);
 
-  // Lines
-  // Set stroke color for day
+  // LINES
+  // If time is day
   if(time.toLowerCase() == 'day') {
+    // Set stroke color to dark green
     lilyPadLayer.stroke(20, 120, 20);
   }
-  // Set stroke color for night
+  // If time is night
   else if(time.toLowerCase() == 'night') {
+    // Set stroke color to light green
     lilyPadLayer.stroke(40, 180, 60);
   }
-  // Set stroke color for day by default if given an incorrect variable
+  // Default if given an incorrect variable
   else {
+    // Set stroke color to dark green
     lilyPadLayer.stroke(20, 120, 20);
   }
   lilyPadLayer.strokeWeight(radius / 100); // Set stroke weight
+
   // Repeat for every angle
   for(let theta = 0; theta < 360; theta += 30) {
     // Declare variables
@@ -285,14 +297,19 @@ function lilyPad(x, y, radius, rotation) {
     lilyPadLayer.line(0, 0, lineEndX, lineEndY);
   }
 
-  // Cut-out
-  lilyPadLayer.erase(); // Turn on erase mode
+  // CUT-OUT
+  // Turn on erase mode
+  lilyPadLayer.erase();
+
+  // Draw shape
   lilyPadLayer.beginShape();
   lilyPadLayer.vertex(0 - (radius / 8), 0 - (radius / 2));
   lilyPadLayer.vertex(radius / 8, 0 - (radius / 2));
   lilyPadLayer.vertex(0, 0);
   lilyPadLayer.endShape();
-  lilyPadLayer.noErase(); // Turn off erase mode
+
+  // Turn off erase mode
+  lilyPadLayer.noErase();
   
   // Print image
   image(lilyPadLayer, x, y);
@@ -302,30 +319,31 @@ function lilyPad(x, y, radius, rotation) {
 }
 
 // WATER LILY FUNCTION
-function waterLily(x, y, radius, rotation) {
+function waterLily(n, d, x, y, radius, colorOne, colorTwo) {
   // PETALS
   // Start new state
   push();
 
-  // Run glow effect if time is night
+  // If time is night
   if(time.toLowerCase() == 'night') {
-    glow(glowAmount, [200, 200, 200]);
+    // Run glow function
+    glow(50, [200, 200, 200]);
   }
 
-  // Set parameters
-  rotate(rotation); // Set rotation
-  strokeWeight(0.25); // Set stroke thickness
-  radialGradient(x, y, 0, x, y, radius, waterLilyColorTwo, waterLilyColorOne, 'stroke'); // Set stroke color
-  radialGradient(x, y, 0, x, y, radius, waterLilyColorOne, waterLilyColorTwo, 'fill'); // Set fill color
+  // Declare variables
+  strokeWeight(0.25);
+  radialGradient(x, y, 0, x, y, radius, colorTwo, colorOne, 'stroke'); // Set stroke color
+  radialGradient(x, y, 0, x, y, radius, colorOne, colorTwo, 'fill'); // Set fill color
 
   // Draw water lily
   beginShape();
+
   // Repeat for every angle
   for(let theta = 0; theta < 360; theta += 0.1) {
     // Declare variables
     // Equations from: https://en.wikipedia.org/wiki/Rose_(mathematics)
-    let dAngle = theta * Math.max(waterLilyN, waterLilyD);
-    let r = cos((waterLilyN / waterLilyD) * dAngle);
+    let dAngle = theta * max(n, d);
+    let r = cos((n / d) * dAngle);
     let dx = (radius * r) * cos(dAngle) + x;
     let dy = (radius * r) * sin(dAngle) + y;
 
@@ -335,37 +353,47 @@ function waterLily(x, y, radius, rotation) {
   endShape();
   
   // PISTIL
-  // Set parameters
-  fill(pistilColor); // Set fill color
-  noStroke(); // Set no stroke
-  // Draw Pistil
-  ellipse(x, y, radius / 3);
+  // Declare variables'
+  noStroke();
+  fill(255, 255, 0); // Yellow
+  
+  // Draw pistil
+  beginShape();
 
-  // Run fireflies function if time is night
-  if(time.toLowerCase() == 'night') {
-    fireflies(x, y, 5);
+  // Repeat for every angle
+  for (let a = 0; a < 360; a += 18) {
+    // Declare variables
+    let dx = cos(a) * (radius / 3) + x;
+    let dy = sin(a) * (radius / 3) + y;
+
+    // Create vertex points
+    vertex(dx, dy);
+
+    // Declare variables
+    dx = cos(a + 9) * (radius / 5) + x;
+    dy = sin(a + 9) * (radius / 5) + y;
+
+    // Create vertex points
+    vertex(dx, dy);
   }
+  endShape();
 
   // Restore previous state
   pop();
 }
 
 // CATTAIL GROUP FUNCTION
-function cattailGroup(x, y) {
+function cattailGroup(x, y, size) {
   // Start new state
   push();
-
-  // Run glow effect if time is night
-  if(time.toLowerCase() == 'night') {
-    glow(glowAmount, [200, 200, 200]);
-  }
 
   // LEAVES
   // Declare variables
   translate(x, y); // Set new (0, 0) co-ordinate
-  stroke(20, 160, 25); // Set stroke color to green
-  strokeWeight(0.75); // Set stroke weight
-  fill(20, 160, 25); // Set fill color to green
+  scale(size);
+  stroke(60, 200, 65); // Green
+  strokeWeight(0.75);
+  fill(60, 200, 65); // Green
 
   // Draw leaves
   beginShape();
@@ -401,25 +429,25 @@ function cattailGroup(x, y) {
 
   push(); // Start new state
   translate(-5, 0); // Set new (0, 0) co-ordinate
-  rotate(-50); // Set rotation
+  rotate(-50);
   cattail(); // Run cattail function
   pop(); // Restore previous state
 
   push(); // Start new state
   translate(5, 0); // Set new (0, 0) co-ordinate
-  rotate(50); // Set rotation
+  rotate(50);
   cattail(); // Run cattail function
   pop(); // Restore previous state
 
   push(); // Start new state
   translate(-6, 5); // Set new (0, 0) co-ordinate
-  rotate(-115); // Set rotation
+  rotate(-115);
   cattail(); // Run cattail function
   pop(); // Restore previous state
 
   push(); // Start new state
   translate(6, 5); // Set new (0, 0) co-ordinate
-  rotate(115); // Set rotation
+  rotate(115);
   cattail(); // Run cattail function
   pop(); // Restore previous state
 
@@ -427,7 +455,7 @@ function cattailGroup(x, y) {
   ripples(0, 26, 5, 3);
 
   // STALKS
-  // Set no fill color
+  // Declare variable
   noFill();
 
   // Draw line and curves
@@ -439,11 +467,6 @@ function cattailGroup(x, y) {
 
   // Restore previous state
   pop();
-
-  // Run fireflies function if time is night
-  if(time.toLowerCase() == 'night') {
-    fireflies(x, y, 5);
-  }
 }
 
 // CATTAILS FUNCTION
@@ -453,17 +476,17 @@ function cattail() {
   push();
 
   // Declare variables
-  stroke(130, 75, 5); // Set stroke color to brown
-  strokeWeight(3.5); // Set stroke weight
-  strokeCap(ROUND); // Set line endings to round
+  stroke(150, 95, 25); // Brown
+  strokeWeight(3.5);
+  strokeCap(ROUND);
   
   // Draw line
   line(0, 0, 0, -10);
 
   // MALE POLLEN
   // Declare variables
-  stroke(225, 205, 5); // Set stroke color to yellow
-  strokeWeight(0.5); // Set stroke weight
+  stroke(225, 205, 5); // Yellow
+  strokeWeight(0.5);
 
   // Draw line
   line(0, -12, 0, -14);
@@ -479,8 +502,8 @@ function rock(x, y, size) {
 
   // Declare variables
   translate(x, y); // Set new (0, 0) co-ordinate
-  scale(1.5); // Set scale
-  noStroke(); // Set no stroke
+  scale(rockScale);
+  noStroke();
   radialGradient(-5, -5, 0, 0, 0, 15, [150, 150, 150], [110, 110, 110], 'fill'); // Set fill color
 
   // Draw rock
@@ -509,9 +532,9 @@ function frog(x, y, size) {
   // Declare variables
   translate(x, y); // Set new (0, 0) co-ordinate
   scale(size);
-  stroke(35, 115, 10); // Set stroke color to dark green
-  strokeWeight(0.5); // Set stroke weight
-  fill(45, 125, 20); // Set fill color to green
+  stroke(35, 115, 10); // Dark green
+  strokeWeight(0.5);
+  fill(65, 145, 40); // Green
 
   // BACK LEGS
   ellipse(-9, 3, 6, 8);
@@ -536,8 +559,8 @@ function frog(x, y, size) {
 
   // STOMACH
   push(); // Start new state
-  noStroke(); // Set no stroke
-  fill(210, 220, 140); // Set fill color to cream
+  noStroke();
+  fill(210, 220, 140); // Cream
   ellipse(0, 0, 12, 14);
   pop(); // Restore previous state
 
@@ -545,55 +568,63 @@ function frog(x, y, size) {
   ellipse(0, -8, 20, 14);
 
   // EYES
-  // Draw eyes if time is day
+  // If time is day
   if(time.toLowerCase() == 'day') {
+    // Draw closed eyes
     ellipse(-5, -13, 7);
     ellipse(5, -13, 7);
-    noFill(); // Set no fill color
+    noFill();
     curve(-12, -20, -8, -12, -2, -12, -2, -20);
     curve(2, -20, 2, -12, 8, -12, 8, -20);
   }
-  // Draw eyes if time is night
+  // If time is night
   else if(time.toLowerCase() == 'night') {
-    noStroke(); // Set no stroke
-    fill(255); // Set fill color to white
+    // Draw open eyes
+    noStroke();
+    fill(255); // White
     ellipse(-5, -13, 7);
     ellipse(5, -13, 7);
-    fill(0); // Set fill color to black
+    fill(0); // Black
     ellipse(-5, -13, 3);
     ellipse(5, -13, 3);
   }
-  // Draw eyes if time is day by default if given an incorrect variable
+  // Default if given an incorrect variable
   else {
+    // Draw closed eyes
     ellipse(-5, -13, 7);
     ellipse(5, -13, 7);
-    noFill(); // Set no fill color
+    noFill();
     curve(-12, -20, -8, -12, -2, -12, -2, -20);
     curve(2, -20, 2, -12, 8, -12, 8, -20);
   }
 
   // MOUTH
-  stroke(15, 95, 0); // Set stroke color to dark green
-  // Draw mouth if time is day
+  stroke(15, 95, 0); // Dark green
+  // If time is day
   if(time.toLowerCase() == 'day') {
-    fill(15, 95, 0); // Set fill color to dark green
+    // Draw open mouth
+    fill(15, 95, 0); // Dark green
     ellipse(0, -5, 6, 2);
   }
-  // Draw mouth if time is night
+  // If time is night
   else if (time.toLowerCase() == 'night') {
-    noFill(); // Set no fill color
+    // Draw smile
+    noFill();
     curve(-10, -20, -5, -6, 5, -6, 10, -20);
   }
-  // Draw mouth if time is day by default if given an incorrect variable
+  // Default if given an incorrect variable
   else {
+    // Draw open mouth
+    fill(15, 95, 0); // Dark green
     ellipse(0, -5, 6, 2);
   }
 
   // ZZZs
-  // Draw ZZZs if time is night
+  // If time is day
   if(time.toLowerCase() == 'day') {
-    stroke(0);
-    fill(255);
+    // Draw ZZZs
+    stroke(0); // Black
+    fill(255); // White
     textSize(4);
     text('Z', 5, -18);
     textSize(6);
@@ -603,9 +634,10 @@ function frog(x, y, size) {
   }
 
   // BLUSH
-  fill(230, 120, 235); // Set fill color to pink
-  // Draw blush if time is night
+  fill(230, 120, 235); // Pink
+  // If time is night
   if(time.toLowerCase() == 'night') {
+    // Draw blush
     ellipse(-7, -7, 4);
     ellipse(7, -7, 4);
   }
@@ -620,15 +652,16 @@ function ripples(x, y, radius, numRipples) {
   push();
 
   // Declare variables
-  stroke(255, 255, 255, 50); // Set stroke color to white
-  strokeWeight(0.2); // Set stroke weight
-  noFill(); // Set no fill color
-  let offset = 0; // Declare offset variable
+  stroke(255, 255, 255, 50); // White with transparency
+  strokeWeight(0.2);
+  noFill();
+  let offset = 0;
 
   // Repeat for every ripple
-  for(let currentRipple = 0; currentRipple < numRipples; currentRipple ++) {
+  for(let i = 0; i < numRipples; i ++) {
     // Draw ripples
     beginShape();
+
     // Repeat for every angle
     for(let theta = 0; theta < 360; theta += 12) {
       // Declare variables
@@ -651,20 +684,67 @@ function ripples(x, y, radius, numRipples) {
 }
 
 // FIREFLIES FUNCTION
-function fireflies(x, y, numFirefly) {
+function fireflies() {
+  // Method borrowed from The Coding Train: https://www.youtube.com/watch?v=XATr_jdh-44
+
   // Start new state
   push();
 
   // Run glow function
   glow(5, [255, 255, 0]);
-  
-  // Declare variables
-  noStroke(); // Set no stroke
-  fill(200, 255, 0); // Set fill color to yellow
 
-  // Repeat for every firefly
-  for(let currentFirefly = 0; currentFirefly < numFirefly; currentFirefly ++) {
-    ellipse(random(x - 30, x + 30), random(y - 30, y + 30), 2.5);
+  // Declare variables
+  noStroke();
+  fill(200, 255, 0); // Yellow
+  let overlap = false; // Set boolean to false
+  let max = 0;
+  
+  // Declare array
+  let fireflies = [];
+
+  // Populate fireflies array with objects
+  // Repeat until there are 15 fireflies
+  while(fireflies.length < 15) {
+    // Declare object
+    let firefly = {
+      x: random(20, 180),
+      y: random(20, 180),
+      d: 5
+    };
+
+    // Repeat for all objects in the fireflies array
+    for(let i = 0; i < fireflies.length; i ++) {
+      // Declare variables
+      let newFirefly = fireflies[i];
+      let distance = dist(firefly.x, firefly.y, newFirefly.x, newFirefly.y);
+
+      // If fireflies are overlapping
+      if(distance < (firefly.d / 2) + (newFirefly.d / 2)) {
+        overlap = true; // Set boolean to true
+        break; // Break out of for loop
+      }
+    }
+
+    // If overlap is false
+    if(!overlap) {
+      // Add object to fireflies array
+      fireflies.push(firefly);
+    }
+
+    // Increment max variable
+    max ++;
+
+    // If 10,000 attempts have been made
+    if(max > 10000) {
+      // Break out of while loop
+      break;
+    }
+  }
+
+  // Draw fireflies
+  // Repeat for every object in the fireflies array
+  for(let i = 0; i < fireflies.length; i ++) {
+    ellipse(fireflies[i].x, fireflies[i].y, fireflies[i].d);
   }
 
   // Restore previous state

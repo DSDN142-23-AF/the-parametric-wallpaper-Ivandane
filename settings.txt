@@ -1,54 +1,816 @@
-You will need to fill out this file for hand in. 
-
-The bellow is just an example, feel free to disregard this documents contents.
-
-
-Your final settings.txt will look something like this when you are finished:
-
-/////////////////////////////////
-
 Wallpaper 1:
 
-//your parameter variables go here!
-let rect_width  = 20;
-let rect_height = 20;
-let paramter1 = 10;
-let paramter2 = true;
-let paramter3 = 50; 
-let paramter4 = 0; 
-let paramter5 = 60;
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'day'; // Accepts either 'day' or 'night'
 
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 60;
+let lilyPadOneY = 160;
+let lilyPadOneRadius = 45;
+let lilyPadOneRotation = 15; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 35;
+let lilyPadTwoY = 110;
+let lilyPadTwoRadius = 30;
+let lilyPadTwoRotation = 220; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 155;
+let lilyPadThreeY = 35;
+let lilyPadThreeRadius = 40;
+let lilyPadThreeRotation = 310; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 2;
+let waterLilyOneD = 1;
+let waterLilyOneX = 50;
+let waterLilyOneY = 150;
+let waterLilyOneRadius = 15;
+let waterLilyOneColorOne = [255, 140, 0];
+let waterLilyOneColorTwo = [255, 220, 155];
+
+// Water Lily Two
+let waterLilyTwoN = 7;
+let waterLilyTwoD = 1;
+let waterLilyTwoX = 100;
+let waterLilyTwoY = 40;
+let waterLilyTwoRadius = 17.5;
+let waterLilyTwoColorOne = [255, 255, 255];
+let waterLilyTwoColorTwo = [245, 255, 130];
+
+// Water Lily Three
+let waterLilyThreeN = 6;
+let waterLilyThreeD = 4;
+let waterLilyThreeX = 150;
+let waterLilyThreeY = 170;
+let waterLilyThreeRadius = 20;
+let waterLilyThreeColorOne = [255, 0, 0];
+let waterLilyThreeColorTwo = [255, 130, 130];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 35;
+let cattailOneY = 30;
+let cattailOneScale = 1.25;
+
+// Cattail Two
+let cattailTwoX = 170;
+let cattailTwoY = 100;
+let cattailTwoScale = 1.4;
+
+// ROCK
+let rockX = 100;
+let rockY = 105;
+let rockScale = 2.5;
+
+// FROG
+let frogX = 100;
+let frogY = 100;
+let frogScale = 1.5;
+
+// SET UP WALLPAPER FUNCTION
 function setup_wallpaper(pWallpaper) {
+  // Output settings
   pWallpaper.output_mode(GRID_WALLPAPER);
   pWallpaper.resolution(NINE_LANDSCAPE);
-  pWallpaper.show_guide(false); //set this to false when you're ready to print
+  pWallpaper.show_guide(false); // Set to false when ready to print
 
-  //Grid settings
-  pWallpaper.grid_settings.cell_width  = 100;
-  pWallpaper.grid_settings.cell_height = 100;
-  pWallpaper.grid_settings.row_offset  = 50;
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 100;
 }
 
 /////////////////////////////////
 
 Wallpaper 2:
 
-//your parameter variables go here!
-let rect_width  = 10;
-let rect_height = 10;
-let paramter1 = 20;
-let paramter2 = false;
-let paramter3 = 50; 
-let paramter4 = 80; 
-let paramter5 = 30;
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'night'; // Accepts either 'day' or 'night'
 
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 180;
+let lilyPadOneY = 170;
+let lilyPadOneRadius = 15;
+let lilyPadOneRotation = 15; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 40;
+let lilyPadTwoY = 160;
+let lilyPadTwoRadius = 35;
+let lilyPadTwoRotation = 220; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 155;
+let lilyPadThreeY = 35;
+let lilyPadThreeRadius = 40;
+let lilyPadThreeRotation = 310; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 2;
+let waterLilyOneD = 5;
+let waterLilyOneX = 50;
+let waterLilyOneY = 150;
+let waterLilyOneRadius = 15;
+let waterLilyOneColorOne = [240, 140, 105];
+let waterLilyOneColorTwo = [255, 220, 210];
+
+// Water Lily Two
+let waterLilyTwoN = 7;
+let waterLilyTwoD = 5;
+let waterLilyTwoX = 110;
+let waterLilyTwoY = 80;
+let waterLilyTwoRadius = 10;
+let waterLilyTwoColorOne = [255, 0, 0];
+let waterLilyTwoColorTwo = [245, 160, 160];
+
+// Water Lily Three
+let waterLilyThreeN = 7;
+let waterLilyThreeD = 2;
+let waterLilyThreeX = 40;
+let waterLilyThreeY = 40;
+let waterLilyThreeRadius = 20;
+let waterLilyThreeColorOne = [255, 0, 145];
+let waterLilyThreeColorTwo = [255, 130, 200];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 140;
+let cattailOneY = 150;
+let cattailOneScale = 1.25;
+
+// Cattail Two
+let cattailTwoX = 170;
+let cattailTwoY = 100;
+let cattailTwoScale = 1.4;
+
+// ROCK
+let rockX = 100;
+let rockY = 105;
+let rockScale = 2.5;
+
+// FROG
+let frogX = 100;
+let frogY = 100;
+let frogScale = 1.5;
+
+// SET UP WALLPAPER FUNCTION
 function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GLIDE_WALLPAPER);
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 100;
+}
+
+/////////////////////////////////
+
+Wallpaper 3:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'day'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 40;
+let lilyPadOneY = 40;
+let lilyPadOneRadius = 30;
+let lilyPadOneRotation = 100; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 40;
+let lilyPadTwoY = 160;
+let lilyPadTwoRadius = 35;
+let lilyPadTwoRotation = 220; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 155;
+let lilyPadThreeY = 35;
+let lilyPadThreeRadius = 40;
+let lilyPadThreeRotation = 310; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 3;
+let waterLilyOneD = 5;
+let waterLilyOneX = 50;
+let waterLilyOneY = 100;
+let waterLilyOneRadius = 15;
+let waterLilyOneColorOne = [0, 230, 50];
+let waterLilyOneColorTwo = [125, 245, 150];
+
+// Water Lily Two
+let waterLilyTwoN = 2;
+let waterLilyTwoD = 3;
+let waterLilyTwoX = 120;
+let waterLilyTwoY = 100;
+let waterLilyTwoRadius = 18;
+let waterLilyTwoColorOne = [235, 130, 0];
+let waterLilyTwoColorTwo = [215, 180, 135];
+
+// Water Lily Three
+let waterLilyThreeN = 6;
+let waterLilyThreeD = 5;
+let waterLilyThreeX = 90;
+let waterLilyThreeY = 40;
+let waterLilyThreeRadius = 15;
+let waterLilyThreeColorOne = [0, 0, 145];
+let waterLilyThreeColorTwo = [90, 90, 245];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 120;
+let cattailOneY = 140;
+let cattailOneScale = 1.5;
+
+// Cattail Two
+let cattailTwoX = 170;
+let cattailTwoY = 100;
+let cattailTwoScale = 1.4;
+
+// ROCK
+let rockX = 160;
+let rockY = 160;
+let rockScale = 1.25;
+
+// FROG
+let frogX = 38;
+let frogY = 38;
+let frogScale = 0.5;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GLIDE_WALLPAPER);
+  pWallpaper.resolution(NINE_PORTRAIT);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 100;
+}
+
+/////////////////////////////////
+
+Wallpaper 4:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'night'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 40;
+let lilyPadOneY = 40;
+let lilyPadOneRadius = 30;
+let lilyPadOneRotation = 100; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 40;
+let lilyPadTwoY = 160;
+let lilyPadTwoRadius = 35;
+let lilyPadTwoRotation = 220; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 100;
+let lilyPadThreeY = 35;
+let lilyPadThreeRadius = 20;
+let lilyPadThreeRotation = 200; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 4;
+let waterLilyOneD = 1;
+let waterLilyOneX = 40;
+let waterLilyOneY = 90;
+let waterLilyOneRadius = 17;
+let waterLilyOneColorOne = [255, 165, 0];
+let waterLilyOneColorTwo = [255, 255, 255];
+
+// Water Lily Two
+let waterLilyTwoN = 5;
+let waterLilyTwoD = 3;
+let waterLilyTwoX = 80;
+let waterLilyTwoY = 165;
+let waterLilyTwoRadius = 15;
+let waterLilyTwoColorOne = [105, 0, 255];
+let waterLilyTwoColorTwo = [255, 215, 0];
+
+// Water Lily Three
+let waterLilyThreeN = 3;
+let waterLilyThreeD = 2;
+let waterLilyThreeX = 160;
+let waterLilyThreeY = 40;
+let waterLilyThreeRadius = 20;
+let waterLilyThreeColorOne = [105, 0, 255];
+let waterLilyThreeColorTwo = [255, 0, 75];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 100;
+let cattailOneY = 80;
+let cattailOneScale = 1.5;
+
+// Cattail Two
+let cattailTwoX = 165;
+let cattailTwoY = 90;
+let cattailTwoScale = 1.2;
+
+// ROCK
+let rockX = 160;
+let rockY = 160;
+let rockScale = 1.25;
+
+// FROG
+let frogX = 160;
+let frogY = 158;
+let frogScale = 0.75;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GRID_WALLPAPER);
+  pWallpaper.resolution(NINE_PORTRAIT);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 150;
+}
+
+/////////////////////////////////
+
+Wallpaper 5:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'day'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 50;
+let lilyPadOneY = 75;
+let lilyPadOneRadius = 25;
+let lilyPadOneRotation = 10; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 170;
+let lilyPadTwoY = 45;
+let lilyPadTwoRadius = 20;
+let lilyPadTwoRotation = 80; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 150;
+let lilyPadThreeY = 160;
+let lilyPadThreeRadius = 40;
+let lilyPadThreeRotation = 200; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 4;
+let waterLilyOneD = 3;
+let waterLilyOneX = 100;
+let waterLilyOneY = 100;
+let waterLilyOneRadius = 25;
+let waterLilyOneColorOne = [255, 0, 185];
+let waterLilyOneColorTwo = [165, 90, 255];
+
+// Water Lily Two
+let waterLilyTwoN = 3;
+let waterLilyTwoD = 4;
+let waterLilyTwoX = 80;
+let waterLilyTwoY = 165;
+let waterLilyTwoRadius = 15;
+let waterLilyTwoColorOne = [65, 0, 255];
+let waterLilyTwoColorTwo = [0, 165, 255];
+
+// Water Lily Three
+let waterLilyThreeN = 5;
+let waterLilyThreeD = 3;
+let waterLilyThreeX = 40;
+let waterLilyThreeY = 140;
+let waterLilyThreeRadius = 18;
+let waterLilyThreeColorOne = [255, 174, 0];
+let waterLilyThreeColorTwo = [255, 45, 0];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 40;
+let cattailOneY = 25;
+let cattailOneScale = 1;
+
+// Cattail Two
+let cattailTwoX = 165;
+let cattailTwoY = 90;
+let cattailTwoScale = 1.2;
+
+// ROCK
+let rockX = 110;
+let rockY = 42;
+let rockScale = 1.5;
+
+// FROG
+let frogX = 110;
+let frogY = 40;
+let frogScale = 0.8;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
   pWallpaper.output_mode(GRID_WALLPAPER);
   pWallpaper.resolution(NINE_LANDSCAPE);
-  pWallpaper.show_guide(false); //set this to false when you're ready to print
+  pWallpaper.show_guide(false); // Set to false when ready to print
 
-  //Grid settings
-  pWallpaper.grid_settings.cell_width  = 100;
-  pWallpaper.grid_settings.cell_height = 100;
-  pWallpaper.grid_settings.row_offset  = 0;
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 150;
+}
+
+/////////////////////////////////
+
+Wallpaper 6:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'night'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 40;
+let lilyPadOneY = 90;
+let lilyPadOneRadius = 35;
+let lilyPadOneRotation = 100; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 160;
+let lilyPadTwoY = 40;
+let lilyPadTwoRadius = 40;
+let lilyPadTwoRotation = 190; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 160;
+let lilyPadThreeY = 160;
+let lilyPadThreeRadius = 30;
+let lilyPadThreeRotation = 290; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 7;
+let waterLilyOneD = 3;
+let waterLilyOneX = 100;
+let waterLilyOneY = 100;
+let waterLilyOneRadius = 22.5;
+let waterLilyOneColorOne = [255, 175, 0];
+let waterLilyOneColorTwo = [255, 45, 0];
+
+// Water Lily Two
+let waterLilyTwoN = 5;
+let waterLilyTwoD = 1;
+let waterLilyTwoX = 90;
+let waterLilyTwoY = 165;
+let waterLilyTwoRadius = 20;
+let waterLilyTwoColorOne = [255, 0, 0];
+let waterLilyTwoColorTwo = [170, 0, 255];
+
+// Water Lily Three
+let waterLilyThreeN = 2;
+let waterLilyThreeD = 5;
+let waterLilyThreeX = 40;
+let waterLilyThreeY = 150;
+let waterLilyThreeRadius = 15;
+let waterLilyThreeColorOne = [20, 0, 255];
+let waterLilyThreeColorTwo = [220, 0, 255];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 100;
+let cattailOneY = 25;
+let cattailOneScale = 1;
+
+// Cattail Two
+let cattailTwoX = 165;
+let cattailTwoY = 90;
+let cattailTwoScale = 1.2;
+
+// ROCK
+let rockX = 35;
+let rockY = 40;
+let rockScale = 1;
+
+// FROG
+let frogX = 165;
+let frogY = 32;
+let frogScale = 0.9;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GLIDE_WALLPAPER);
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 20;
+}
+
+/////////////////////////////////
+
+Wallpaper 7:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'day'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 60;
+let lilyPadOneY = 155;
+let lilyPadOneRadius = 50;
+let lilyPadOneRotation = 80; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 180;
+let lilyPadTwoY = 125;
+let lilyPadTwoRadius = 20;
+let lilyPadTwoRotation = 250; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 160;
+let lilyPadThreeY = 160;
+let lilyPadThreeRadius = 30;
+let lilyPadThreeRotation = 290; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 5;
+let waterLilyOneD = 3;
+let waterLilyOneX = 150;
+let waterLilyOneY = 150;
+let waterLilyOneRadius = 18;
+let waterLilyOneColorOne = [25, 0, 255];
+let waterLilyOneColorTwo = [255, 0, 0];
+
+// Water Lily Two
+let waterLilyTwoN = 7;
+let waterLilyTwoD = 3;
+let waterLilyTwoX = 165;
+let waterLilyTwoY = 35;
+let waterLilyTwoRadius = 20;
+let waterLilyTwoColorOne = [0, 40, 255];
+let waterLilyTwoColorTwo = [180, 50, 255];
+
+// Water Lily Three
+let waterLilyThreeN = 3;
+let waterLilyThreeD = 1;
+let waterLilyThreeX = 82;
+let waterLilyThreeY = 148;
+let waterLilyThreeRadius = 10;
+let waterLilyThreeColorOne = [255, 165, 0];
+let waterLilyThreeColorTwo = [220, 255, 0];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 100;
+let cattailOneY = 25;
+let cattailOneScale = 1.4;
+
+// Cattail Two
+let cattailTwoX = 170;
+let cattailTwoY = 65;
+let cattailTwoScale = 1.1;
+
+// ROCK
+let rockX = 38;
+let rockY = 100;
+let rockScale = 1.5;
+
+// FROG
+let frogX = 52;
+let frogY = 155;
+let frogScale = 1.3;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GRID_WALLPAPER);
+  pWallpaper.resolution(NINE_PORTRAIT);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 50;
+}
+
+/////////////////////////////////
+
+Wallpaper 8:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'night'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 65;
+let lilyPadOneY = 30;
+let lilyPadOneRadius = 30;
+let lilyPadOneRotation = 200; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 160;
+let lilyPadTwoY = 105;
+let lilyPadTwoRadius = 40;
+let lilyPadTwoRotation = 250; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 110;
+let lilyPadThreeY = 130;
+let lilyPadThreeRadius = 20;
+let lilyPadThreeRotation = 290; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 7;
+let waterLilyOneD = 2;
+let waterLilyOneX = 160;
+let waterLilyOneY = 165;
+let waterLilyOneRadius = 15;
+let waterLilyOneColorOne = [25, 0, 255];
+let waterLilyOneColorTwo = [255, 0, 0];
+
+// Water Lily Two
+let waterLilyTwoN = 6;
+let waterLilyTwoD = 4;
+let waterLilyTwoX = 35;
+let waterLilyTwoY = 35;
+let waterLilyTwoRadius = 20;
+let waterLilyTwoColorOne = [0, 40, 255];
+let waterLilyTwoColorTwo = [180, 50, 255];
+
+// Water Lily Three
+let waterLilyThreeN = 3;
+let waterLilyThreeD = 7;
+let waterLilyThreeX = 60;
+let waterLilyThreeY = 160;
+let waterLilyThreeRadius = 22.5;
+let waterLilyThreeColorOne = [255, 165, 0];
+let waterLilyThreeColorTwo = [220, 255, 0];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 145;
+let cattailOneY = 25;
+let cattailOneScale = 1.3;
+
+// Cattail Two
+let cattailTwoX = 120;
+let cattailTwoY = 65;
+let cattailTwoScale = 1.1;
+
+// ROCK
+let rockX = 70;
+let rockY = 100;
+let rockScale = 1.75;
+
+// FROG
+let frogX = 160;
+let frogY = 100;
+let frogScale = 1;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GLIDE_WALLPAPER);
+  pWallpaper.resolution(NINE_PORTRAIT);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 50;
+}
+
+/////////////////////////////////
+
+Wallpaper 9:
+
+// PARAMETRIC VARIABLES
+// TIME
+let time = 'day'; // Accepts either 'day' or 'night'
+
+// LILY PADS
+// Lily Pad One
+let lilyPadOneX = 120;
+let lilyPadOneY = 85;
+let lilyPadOneRadius = 25;
+let lilyPadOneRotation = 160; // Accepts range from 0 to 359
+
+// Lily Pad Two
+let lilyPadTwoX = 40;
+let lilyPadTwoY = 60;
+let lilyPadTwoRadius = 35;
+let lilyPadTwoRotation = 250; // Accepts range from 0 to 359
+
+// Lily Pad Three
+let lilyPadThreeX = 98;
+let lilyPadThreeY = 160;
+let lilyPadThreeRadius = 40;
+let lilyPadThreeRotation = 290; // Accepts range from 0 to 359
+
+// WATER LILIES
+/* Refer to this image for flower patterns: https://en.wikipedia.org/wiki/Rose_(mathematics)#/media/File:Rose-rhodonea-curve-7x9-chart-improved.svg.
+For best results, do not set the same value for 'waterLilyN' and 'waterLilyD'. */
+// Water Lily One
+let waterLilyOneN = 3;
+let waterLilyOneD = 2;
+let waterLilyOneX = 150;
+let waterLilyOneY = 165;
+let waterLilyOneRadius = 17.5;
+let waterLilyOneColorOne = [255, 0, 215];
+let waterLilyOneColorTwo = [165, 40, 255];
+
+// Water Lily Two
+let waterLilyTwoN = 2;
+let waterLilyTwoD = 1;
+let waterLilyTwoX = 110;
+let waterLilyTwoY = 95;
+let waterLilyTwoRadius = 10;
+let waterLilyTwoColorOne = [255, 0, 215];
+let waterLilyTwoColorTwo = [255, 0, 0];
+
+// Water Lily Three
+let waterLilyThreeN = 7;
+let waterLilyThreeD = 3;
+let waterLilyThreeX = 50;
+let waterLilyThreeY = 130;
+let waterLilyThreeRadius = 20;
+let waterLilyThreeColorOne = [255, 115, 0];
+let waterLilyThreeColorTwo = [0, 65, 255];
+
+// CATTAILS
+// Cattail One
+let cattailOneX = 165;
+let cattailOneY = 60;
+let cattailOneScale = 1.5;
+
+// Cattail Two
+let cattailTwoX = 115;
+let cattailTwoY = 30;
+let cattailTwoScale = 1.25;
+
+// ROCK
+let rockX = 150;
+let rockY = 50;
+let rockScale = 1.5;
+
+// FROG
+let frogX = 40;
+let frogY = 60;
+let frogScale = 0.85;
+
+// SET UP WALLPAPER FUNCTION
+function setup_wallpaper(pWallpaper) {
+  // Output settings
+  pWallpaper.output_mode(GRID_WALLPAPER);
+  pWallpaper.resolution(NINE_LANDSCAPE);
+  pWallpaper.show_guide(false); // Set to false when ready to print
+
+  // Grid settings
+  pWallpaper.grid_settings.cell_width  = 200;
+  pWallpaper.grid_settings.cell_height = 200;
+  pWallpaper.grid_settings.row_offset  = 50;
 }
